@@ -20,7 +20,7 @@ const defaultSate = {
 const App = () => {
   return(
   <Provider store={store}>
-   <Counter />;
+   <Counter random="random value" />;
   </Provider>
   );
 };
