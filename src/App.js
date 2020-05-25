@@ -1,19 +1,23 @@
 import React from "react";
 import Counter from "./Counter";
-import {createStore} from 'redux';
-import {DECREASE, RESET, INCREASE} from "./actions"; 
-import reducer from "./reducers";
+import {createStore, combineReducers} from 'redux';
 import {Provider} from 'react-redux';
 import {composeWithDevTools} from "redux-devtools-extension";
 
-// set intial state
-const defaultSate = {
-  count: 69,
-  name: "Edward"
-}
+// components
+import Modal from './Modal';
+
+// reducers
+import countReducer from "./countReducers";
+import productReducer from "./productReducer";
+import modalReducer from "./modalReducer";
 
 // setup store
- const store = createStore(reducer,defaultSate,composeWithDevTools());
+ const store = createStore(combineReducers({
+   countState:countReducer,
+   modalState:modalReducer,
+   productState:productReducer
+ }),composeWithDevTools());
  
 
 
@@ -21,6 +25,7 @@ const App = () => {
   return(
   <Provider store={store}>
    <Counter random="random value" />;
+   <Modal/>
   </Provider>
   );
 };
