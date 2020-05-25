@@ -4,7 +4,7 @@ import {createStore} from 'redux';
 import {DECREASE, RESET, INCREASE} from "./actions"; 
 import reducer from "./reducers";
 import {Provider} from 'react-redux';
-
+import {composeWithDevTools} from "redux-devtools-extension";
 
 // set intial state
 const defaultSate = {
@@ -13,7 +13,7 @@ const defaultSate = {
 }
 
 // setup store
- const store = createStore(reducer, defaultSate);
+ const store = createStore(reducer,defaultSate,composeWithDevTools());
  
 
 
