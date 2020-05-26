@@ -1,8 +1,8 @@
 import React from "react";
 import {connect} from "react-redux";
-import {DECREASE, RESET, INCREASE} from "./actions";
+import {decrease, increase, reset, modalOpen} from "./actions";
 
-function Counter({name,count,increase,decrease,reset}) {
+function Counter({name,count,increase,decrease,reset, modalOpen }) {
   
 
   
@@ -16,7 +16,10 @@ function Counter({name,count,increase,decrease,reset}) {
         decrease
       </button>
 
-      <button type="button" className="btn" onClick={reset}>
+      <button type="button" className="btn" onClick={()=> {
+        reset();
+        modalOpen("hi","its back to zero now!!");
+        }}>
         reset count
       </button>
 
@@ -29,12 +32,19 @@ function Counter({name,count,increase,decrease,reset}) {
 function mapStateToProps({countState:{count,name}}) {
   return {count:count, name:name};
 };
+ 
+// references
+//function mapDispatchToProps (dispatch, ownProps) {
+//console.log(ownProps);
+//return{increase:()=>dispatch(increase()),
+//      decrease:()=>dispatch(decrease()),
+//      reset:()=>{
+//        dispatch(reset)
+//        dispatch(modalOpen("Hi!","your counter has been reset"));
+//      }
+//    } 
+//};
 
-function mapDispatchToProps (dispatch, ownProps) {
-console.log(ownProps);
-return{increase:()=>dispatch({type:INCREASE}),
-      decrease:()=>dispatch({type:DECREASE}),
-      reset:()=>dispatch({type:RESET})
-    };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(Counter);
+export default connect(mapStateToProps,{
+  increase,reset,decrease,modalOpen
+})(Counter);
